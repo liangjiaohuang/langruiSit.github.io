@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link rel="icon" href="../favicon.ico">
+        <title>Electric lifting table,kids study desk,Pneumatic lifting table - Wuxi Lanrui Intelligent</title>
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+        <link rel="stylesheet" href="../static/css/common.css?v=202110181959" type="text/css">
+        <link rel="stylesheet" href="../static/css/productInfo.css?v=202110181959" type="text/css">
+        <!-- <link rel="stylesheet" href="../static/css/prouctIfram.css?v=202110181959" type="text/css"> -->
+        <script src='../static/js/jquery-1.10.2.js'></script>
+    </head>
+    <body>
+        <div class="top-container">
+            <iframe class="header-iframe" frameborder=0 scrolling="no" src="../ifram/header.html"></iframe>
+            <div class="blank"></div>
+            <div class="container width-1200" style="height: 30px; margin-top: 20px;background-color: rgb(242, 242, 242);margin-bottom: 0;"> 
+                <iframe frameborder=0 scrolling="no" src="../ifram/navigation.html"></iframe>
+            </div>
+            <div class="container">
+                <div class="pdc-info">
+                    <div id="pdcInfo" style="display: flex;">
+                    </div>
+                    <div class="overview">
+                        <!-- <img src="../static/image/product/ElectricLiftingTable/0/overview.png"> -->
+                    </div>
+                    <div class="paging">
+                        <!-- <a>Previous:  Indigo check dobby fabric</a>
+                        <a>Next:  Polyester jacquard fabric</a> -->
+                    </div>
+                    <div>
+                        <div class="popular-products-title">Popular products</div>
+                        <div style="width: 980px;border-top: 1px #ddd dashed;margin-left: 15px;"></div>
+                        <div class="popular-products">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="like-pdc">
+                    <span style="font-size: 22px; font-weight: 600;">Top-Ranking Products</span>
+                    <div class="top-products">
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="footer">
+                <iframe name="iframe2" frameborder=0 scrolling="no" class="footer-ifram" src="../ifram/bottom.html"></iframe>
+            </div>
+        </div>
+    </body>
+    <script>
+        $(function(){
+            // getParam();
+            let type = getUrlParam("type");
+            let index = getUrlParam("index");
+            filterProductByType(type, function(products){
+                renderDes(parseInt(index), products);
+                initMonitor();
+                renderOverview(index,products);
+                // 处理翻页
+                initPaging(parseInt(index),products);
+                // 热门
+                renderTopProducts(products);
+                // 流行产品
+                renderPopularProducts();
+            });
+        });
+
+        // 处理翻页
+        function initPaging(index, products) {
+            var previouPdc = null;
+            var nextPdc = null;
+            if (index != 0) {
+                previouPdc = products[index-1];
+            }
+            if (index != products.length -1) {
+                nextPdc = products[index+1];
+            }
+            var html = "";
+            if (previouPdc) {
+                html += "<a target='_top' href='./productInfo.html?type=" + previouPdc.type + "&index=" + previouPdc.index + "'>Previous: " + previouPdc.title + "</a>";
+            } else {
+                html += "<a style='opacity: 0;'></a>"
+            }
+            if (nextPdc) {
+                html += "<a target='_top' href='./productInfo.html?type=" + nextPdc.type + "&index=" + nextPdc.index + "'>Next: " + nextPdc.title + "</a>";
+            } else {
+                html += "<a style='opacity: 0;'></a>"
+            }
+
+            $(".paging").empty();
+            $(".paging").append(html);
+
+            if (!previouPdc && !nextPdc) {
+                $(".paging").css("display","none");
+            }
+        }
+
+        function renderOverview (index, products) {
+            let pdc = products[index];
+            let html = "<img src='../static/image/product/" + pdc.type + "/" + pdc.index + "/overview.png'>";
+            $('.overview').empty();
+            $('.overview').append(html);
+        }
+
+        // 渲染流行产品
+        function renderPopularProducts() {// 随机四个
+            loadingProduct(function(products){
+                console.log(products.length)
+                var indexs = [];
+                for (var i = 0; i < 4; i++) {
+                    indexs.push(Math.ceil(Math.random()*30));
+                }
+                let html = "";
+                for (var i = 0; i < 4; i++) {
+                    let pdc = products[indexs[i]];
+                    html += "<div class='product-info' type='" + pdc.type + "'>";
+                        html += "<div class='product-media' >";
+                            html += "<div class='mediaimg'>";
+                            let url = "../static/image/product/" + pdc.type + "/" + pdc.index + "/" + "1.jpg";
+                            html += "<img src='" + url + "'/>"
+                        html += "</div>"
+                        html += "</div>"
+                        html += "<div class='product-title'>"
+                            html += "<a target='_blank' title='" + pdc.title + "' href='../pages/productInfo.html?type=" + pdc.type + "&index=" + pdc.index + "'>" + pdc.title + "</a>"
+                        html += "</div>"
+                    html += "</div>"
+                }
+                $('.popular-products').empty();
+                $('.popular-products').append(html);
+            });
+
+        }
+
+        // 渲染热们产品
+        function renderTopProducts(allProducts){
+            var topPdc = [
+                {"type":"PneumaticLiftingTable", "index": 1, "title":"Ergonomic Adjustable Mobile Standing Desk for Laptop with Rolling Wheels Sit to Stand Computer Table"},
+                {"type":"PneumaticLiftingTable", "index": 3, "title":"Factory Directly Sale Rolling Single Leg Sit-Stand Laptop Computer Desk Adjustable Height Computer Cart Standing Desk"},
+                {"type":"PneumaticLiftingTable", "index": 2, "title":"Excellent Pneumatic Sit and Stand Mobile Desk Adjustable Height Laptop Desk Lectern for Classrooms Offices and Home"},
+                {"type":"Hardware", "index": 2, "title":"Pneumatic Adjustable Tatami Lifting Column For Home and Recreational Vehicle"},
+                {"type": "Others", "index": 5, "title":"Height Adjustable TV Base Stand for 37-55 inch LCD LED TVs"}
+            ]
+            let html = "";
+            for (var i = 0; i < topPdc.length; i++) {
+                let pdc = topPdc[i];
+                html += "<div class='product-info' type='" + pdc.type + "'>";
+                    html += "<div class='product-media' >";
+                        html += "<div class='mediaimg'>";
+                        let url = "../static/image/product/" + pdc.type + "/" + pdc.index + "/" + "1.jpg";
+                        html += "<img src='" + url + "'/>"
+                    html += "</div>"
+                    html += "</div>"
+                    html += "<div class='product-title'>"
+                        html += "<a target='_blank' title='" + pdc.title + "' href='../pages/productInfo.html?type=" + pdc.type + "&index=" + pdc.index + "'>" + pdc.title + "</a>"
+                    html += "</div>"
+                html += "</div>"
+            }
+            $('.top-products').empty();
+            $('.top-products').append(html);
+
+        }
+        // 绘制产品详情
+        function renderDes(index, products){
+            let pdc = products[index];
+            let html = "<div class='media'>";
+                html += "<div class='upmedia'>";
+                    if (pdc.hasVideo) {
+                        html += "<video width='350px' height='350px' controls='controls'>";
+                            let vdurl = "../static/image/product/" + pdc.type + "/" + pdc.index + "/" + "video.mp4";
+                            html += "<source src='" + vdurl +"'  type='video/mp4' />";
+                            html += "Your browser does not support the video tag.";
+                        html += "</video>";
+                        html += "<img src='../static/image/product/" + pdc.type + "/" + index + "/1.jpg' bigimage style='display:none;'>";
+                    } else {
+                        html += "<img src='../static/image/product/" + pdc.type + "/" + index + "/1.jpg' bigimage>";
+                    }
+                    
+                html += "</div>";
+                html += "<div class='downmedia'>";
+                    if (pdc.hasVideo) {
+                        html += "<img src='../static/image/product/" + pdc.type + "/" + index + "/" + 1 +".jpg'>";
+                        html += "<img class='playCircle' style='width:35px;height:35px;' src='../static/image/icon/playCircle.png' smallvideo>";
+                    }
+                    var size = pdc.imgNum > 6 ? 6 : pdc.imgNum;
+                    for (var i = 1; i <= size; i++) {
+                        html += "<img src='../static/image/product/" + pdc.type + "/" + index + "/" + i +".jpg' smallimage>";
+                    }
+                html += "</div>";
+                html += "<div class='mirror'>";
+                    html += "<img src='' mirror>";
+                html += "</div>";
+            html += "</div>";
+
+            html += "<div class='description'>";
+                html += "<div class='title'>" + pdc.title + "</div>";
+                html += "<div class='widget-main-action'>";
+                    html += "<div class='text-des'>";
+                        html += "<p>" + pdc.des +"</p>";
+                        for (var j=0; j<pdc.subdes.length; j++) {
+                            html += "<p>&nbsp;</p>";
+                            html += "<p class='sub-des'>" + (j+1) + ". " + pdc.subdes[j] + "</p>";
+                        }
+                    html += "</div>";
+                    html += "<div class='img-des'>";
+                        if (pdc.hasimgDes) {
+                            html += "<img src='../static/image/product/" + pdc.type + "/" + index + "/des.png'>";
+                        } 
+                    html += "</div>";
+                html += "</div>";
+            html += "</div>";
+
+            $("#pdcInfo").empty();
+            $("#pdcInfo").append(html);
+        }
+
+        // 根据类型过滤数据
+        function filterProductByType(type, callback) {
+            let filertProducts = [];
+            loadingProduct(function(products){
+                for (var i = 0; i < products.length; i++) {
+                    let pdc = products[i];
+                    if (pdc.type === type) {
+                        filertProducts.push(pdc);
+                    }
+                }
+                callback(filertProducts);
+            });
+        }
+
+        // 加载所有产品信息
+        function loadingProduct(callback) {
+            let allProducts = [];
+            $.getJSON("../static/json/product.json",function(data){
+                let count = 0;
+                for (var i = 0; i < data.length; i++) {
+                    let productGroup = data[i];
+                    for (var j = 0; j < productGroup.items.length; j++) {
+                        let product = productGroup.items[j];
+                        product.type = productGroup.type;
+                        allProducts.push(product)
+                    }
+                }
+                callback(allProducts);
+            })
+        }
+
+        // 获取页面参数
+        function getUrlParam(name) {  
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象    
+            var r = window.location.search.substr(1).match(reg);  //匹配目标参数      
+                if (r != null) return unescape(r[2]);       
+                        return null; //返回参数值   
+        }
+
+        // 放大处理
+        function initMonitor () {
+            /**
+                * 完成下面选择图片的效果：
+                *         1.当鼠标放置在下面的小图片时，改变边框属性
+                *         2.更改含有bigimage的img标签的src，进行图片更换
+                */
+            $("[smallimage]").mouseover(function(){
+                $("[bigimage]").css("display","block");
+                $("video").css("display","none");
+                $("video")[0].pause();
+                var address = $(this).css("border","1px solid red").attr("src");
+                $("[bigimage]").attr("src",address);
+            }).mouseout(function(){
+                $(this).css("border","1px solid #ccc");
+            });
+            $("[smallvideo]").mouseover(function(){
+                $("[bigimage]").css("display","none");
+                $("video").css("display","block");
+                $("video")[0].play();
+            })
+            /**
+                * 大图鼠标移动事件：
+                *         1.设置mirror所在的img标签的display属性为block，即让它显示
+                *         2.当鼠标在内部移动的时候，通过计算，在mirror中进行放大显示
+                * 鼠标移出事件：
+                *         设置mirror不可见 display:none
+                */
+            $("[bigimage]").mousemove(function(even){
+                //获取大图的相对文档的偏移量
+                var offset = $(this).offset();
+                //获取鼠标相对于大图左上角的x轴偏移量
+                var x = even.pageX - offset.left;
+                //获取鼠标相对于大图左上角的y轴偏移量
+                var y = even.pageY - offset.top;
+                //设置放大镜放大倍数，可自行设置
+                var multiple = 10;
+                //获取放大镜所在div的宽度和高度
+                var mirrorwidth = $(".mirror").width();
+                var mirrorHeight = $(".mirror").height();
+                //获取bigimage此时的src的值
+                var address = $(this).attr("src");
+                //更改放大镜的src的值，切换图片
+                $("[mirror]").attr("src",address);
+                $(".mirror").css("display","block").scrollLeft(Math.max(x*multiple - mirrorwidth/2.0)).scrollTop(Math.max(y*multiple - mirrorHeight/2.0));
+            }).mouseout(function(){
+                $(".mirror").css("display","none");
+            });
+        }
+    </script>
+</html>

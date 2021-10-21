@@ -1,0 +1,55 @@
+<style>
+    @import url(../static/css/common.css?v=202110181959);
+    @import url(../static/css/header.css?v=202110181959)
+</style>
+<script src='../static/js/jquery-1.10.2.js'></script>
+<script>
+    $(function(){
+        var pathname = window.parent.location.pathname;
+        var pagename = pathname.substr(pathname.lastIndexOf("/")+1);
+        pagename = pagename.substr(0, pagename.lastIndexOf("."));
+
+        /* $(".menu[div]").addClass("menu-item"); */
+        $(".menu[div]").removeClass("bar-item-current");
+        if (pagename == "index" || pagename == "") {
+            $("#index").addClass("bar-item-current");
+            $("#index").removeClass("menu-item");
+        } else if(pagename == "product" || pagename == "productInfo") {
+            $("#product").addClass("bar-item-current");
+            $("#product").removeClass("menu-item");
+        }  else if(pagename == "faq") {
+            $("#faq").addClass("bar-item-current");
+            $("#faq").removeClass("menu-item");
+        }  else if(pagename == "about") {
+            $("#about").addClass("bar-item-current");
+            $("#about").removeClass("menu-item");
+        }  else if(pagename == "contact") {
+            $("#contact").addClass("bar-item-current");
+            $("#contact").removeClass("menu-item");
+        } 
+    })
+</script>
+<div>
+    <div class="container width-1200 layout-flex">
+        <div class="logo">
+            <img src="../static/image/logo/logo01.jpg">
+        </div>
+        <div class="menu">
+            <div id="index" class="bar-item">
+                <a target="_top" href="../index.html">HOME</a>
+            </div>
+            <div id="product" class="bar-item">
+                <a target="_top" href="../pages/product.html">PRODUCTS</a>
+            </div>
+            <div id="faq" class="bar-item">
+                <a target="_top" href="../pages/faq.html">FAQ</a>
+            </div>
+            <div id="about" class="bar-item">
+                <a target="_top" href="../pages/about.html">ABOUT</a>
+            </div>
+            <div id="contact" class="bar-item">
+                <a target="_top" href="../pages/contact.html">CONTACT</a>
+            </div>
+        </div>
+    </div>
+</div>

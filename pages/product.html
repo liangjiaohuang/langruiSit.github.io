@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link rel="icon" href="../favicon.ico">
+        <title>Electric lifting table,kids study desk,Pneumatic lifting table - Wuxi Lanrui Intelligent</title>
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+        <link rel="stylesheet" href="../static/css/common.css?v=202110181959" type="text/css">
+        <link rel="stylesheet" href="../static/css/product.css?v=202110181959" type="text/css">
+        <script src='../static/js/jquery-1.10.2.js'></script>
+    </head>
+    <body>
+        <div class="top-container" style="background-color: rgb(242, 242, 242);">
+            <iframe class="header-iframe" frameborder=0 scrolling="no" src="../ifram/header.html"></iframe>
+            <div class="blank"></div>
+            <div class="container width-1200" style="height: 30px; margin-top: 20px;"> 
+                <iframe frameborder=0 scrolling="no" src="../ifram/navigation.html"></iframe>
+            </div>
+            
+            <div style="background: rgb(242, 242, 242);margin-top:20px;">
+                <div class="container width-1200">
+                    <div class="catalogue">
+                        <ul class="cr-tabs-nav">
+                            <li id="ALLPDC" class="r-tabs-tab" onmouseover="getProductByType(this,'ALLPDC')">All products</li>
+                            <li id="ElectricLiftingTable" class="r-tabs-tab" onmouseover="getProductByType(this,'ElectricLiftingTable')">Electric lifting table</li>
+                            <li id="KidsStudyDesk" class="r-tabs-tab" onmouseover="getProductByType(this,'KidsStudyDesk')">Kids study desk</li>
+                            <li id="PneumaticLiftingTable" class="r-tabs-tab" onmouseover="getProductByType(this,'PneumaticLiftingTable')">Pneumatic table</li>
+                            <li id="Hardware" class="r-tabs-tab" onmouseover="getProductByType(this,'Hardware')">Hardware</li>
+                            <li id="Others" class="r-tabs-tab" onmouseover="getProductByType(this,'Others')">Others</li>
+                        </ul>
+                    </div>
+                    <div class="pdc-list">
+                        <iframe id="productIfram" name="productIfram" scrolling="no" frameborder=0 style="width:1050px;bottom: 0;" src="../ifram/productIfram.html"></iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <iframe name="iframe2" frameborder=0 scrolling="no" class="footer-ifram" src="../ifram/bottom.html"></iframe>
+            </div>
+        </div>
+
+    </body>
+    <script>
+        $(function(){
+            var type = "ALLPDC";
+            var tmpType = getUrlParam("type");
+            if (tmpType) {
+                type = tmpType;
+            }
+            $("#productIfram").load(function(){
+                $("#productIfram")[0].contentWindow.reset(type,12,1,function(size){
+                    if (size/12 >= 1) {
+                        $("#productIfram").css("height", "1000px");
+                    } else {
+                        $("#productIfram").css("height", "680px");
+                    }
+                });
+                $("#"+ type).css("border-right","4px solid rgb(242, 127, 29)");
+                $("#"+ type).css("color","rgb(242, 127, 29)");
+                // $(".r-tabs-tab:first").css("border-right","4px solid rgb(242, 127, 29)");
+                // $(".r-tabs-tab:first").css("color","rgb(242, 127, 29)");
+            })
+        })
+        // 切换产品分类
+        function getProductByType(mdl,type) {
+            $("#productIfram")[0].contentWindow.reset(type,12,1,function(size){
+                if (size/12 >= 1) {
+                    $("#productIfram").css("height", "1000px");
+                } else {
+                    $("#productIfram").css("height", "680px");
+                }
+            });
+
+            $(".r-tabs-tab").css("border-right","0");
+            $(".r-tabs-tab").css("color","#000");
+
+            $(mdl).css("border-right","4px solid rgb(242, 127, 29)");
+            $(mdl).css("color","rgb(242, 127, 29)");
+        }
+
+        // 获取页面参数
+        function getUrlParam(name) {  
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象    
+            var r = window.location.search.substr(1).match(reg);  //匹配目标参数      
+            if (r != null) return unescape(r[2]);       
+                return null; //返回参数值   
+        }
+    </script>
+</html>

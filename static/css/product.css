@@ -1,0 +1,32 @@
+.catalogue{
+    width: 200px;
+}
+.pdc-list{
+    width: 1000px;
+}
+.cr-tabs-nav{
+    display: block;
+    list-style-type: disc;
+    margin-inline-start: 0px;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-inline-end: 0px;
+    background-color: #fff;
+}
+.r-tabs-tab{
+    height: 68px;
+    border-bottom: 1px inset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+}
+.r-tabs-tab:hover{
+    color: rgb(242, 127, 29);
+    border-right: 4px solid rgb(242, 127, 29);
+}
+.container{
+    display: flex;
+    background: rgb(242, 242, 242);
+}

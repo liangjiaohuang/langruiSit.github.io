@@ -1,0 +1,62 @@
+<style>
+    @import url(../static/css/navigation.css?v=202110181959);
+</style>
+<div>
+    <ol class="detail-breadcrumb">
+        <li class="breadcrumb-item">
+            <a class="breadcrumb-link" target='_top' href="../index.html">HOME</a>
+        </li>
+        <li class="breadcrumb-item products"  style="display: none">
+            <span>></span>
+            <a class="breadcrumb-link" target='_top' href="../pages/product.html">PRODUCTS</a>
+        </li>
+        <li class="breadcrumb-item productsType" style="display: none">
+            <span>></span>
+            <a id="pdcInfo" target='_top' class="breadcrumb-link" href="../pages/product.html?type=PneumaticLiftingTable">PneumaticLiftingTable</a>
+        </li>
+        <li class="breadcrumb-item faq" style="display: none">
+            <span>></span>
+            <a class="breadcrumb-link" target='_top' href="../pages/faq.html">FAQ</a>
+        </li>
+        <li class="breadcrumb-item about" target='_top' style="display: none">
+            <span>></span>
+            <a class="breadcrumb-link" target='_top' href="../pages/about.html">ABOUT</a>
+        </li>
+        <li class="breadcrumb-item contact" target='_top' style="display: none">
+            <span>></span>
+            <a class="breadcrumb-link" target='_top' href="../pages/contact.html">CONTACT</a>
+        </li>
+    </ol>
+</div>
+<script src='../static/js/jquery-1.10.2.js'></script>
+<script>
+    $(function(){
+        var pathname = window.parent.location.pathname;
+        var pagename = pathname.substr(pathname.lastIndexOf("/")+1);
+        pagename = pagename.substr(0, pagename.lastIndexOf("."));
+
+        if(pagename == "product") {
+            $('.products').css("display","inline-block");
+        } else if ( pagename == "productInfo") {
+            $('.products').css("display","inline-block");
+            $('.productsType').css("display","inline-block");
+            let type = getUrlParam("type");
+            $('#pdcInfo').attr("href", "../pages/product.html?type=" + type);
+            $('#pdcInfo').empty();
+            $('#pdcInfo').append(type);
+        } else if(pagename == "faq") {
+            $('.faq').css("display","inline-block");
+        } else if(pagename == "about") {
+            $('.about').css("display","inline-block");
+        } else if(pagename == "contact") {
+            $('.contact').css("display","inline-block");
+        } 
+    })
+        // 获取页面参数
+    function getUrlParam(name) {  
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象    
+        var r = window.parent.location.search.substr(1).match(reg);  //匹配目标参数      
+            if (r != null) return unescape(r[2]);       
+                    return null; //返回参数值   
+    }
+</script>

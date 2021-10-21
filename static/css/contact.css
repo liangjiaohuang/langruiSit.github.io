@@ -1,0 +1,72 @@
+.form-inline {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+}
+.form-group {
+    margin-bottom: 1rem;
+}
+.form-inline .form-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+}
+.w-100 {
+    width: 100% !important;
+}
+.form-control {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+textarea.form-control {
+    height: auto;
+}
+textarea {
+    overflow: auto;
+    resize: vertical;
+    width: 624px;
+}
+.contact-email{
+    width: 650px;
+}
+button{
+    width: 120px;
+    height: 40px;
+    background-color: #fff;
+    border: 1px solid blue;
+    border-radius: 14px;
+    margin-top: 12px;
+}
+.sitewidget-bd {
+    background-position: left top;
+    background-repeat: repeat;
+    background-attachment: scroll;
+    font-family: Open Sans;
+    font-size: 15px;
+    color: #545454;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.7em;
+    text-align: left;
+}
+.fix {
+    clear: both;
+    zoom: 1;
+}
+.concat-container{
+    width: 350px;
+}
+.concat-container li img{
+    width: 20px;
+}

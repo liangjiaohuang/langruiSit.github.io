@@ -1,0 +1,78 @@
+html,body{height: 100%;}
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, button, select {
+    margin: 0;
+    padding: 0;
+}
+div a {
+    font-family: Open Sans;
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.7em;
+    text-align: left;
+}
+iframe {width: 100%;height: auto;}
+.container {
+    border-left: 0 solid #000;
+    border-right: 0 solid #000;
+    border-top: 0 solid #000;
+    border-bottom: 0 solid #000;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+ol, ul, li {
+    list-style: none;
+}
+ul, menu, dir {
+    display: block;
+    list-style-type: disc;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+a {
+    text-decoration: none;
+}
+.width-1200 { width: 1200px;}
+.width-990 {width: 990px;}
+.width-200 {width: 200px;}
+.layout-flex{display: flex;}
+.header-iframe{
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    background-color: #fff;
+    border-bottom: 1px solid #d3d3d3;
+    height: 80px;
+}
+.blank{height: 80px;}
+.top-container{
+    /*保证footer是相对于container位置绝对定位*/
+    position:relative;  
+    width:100%;
+    min-height:100%; 
+    /*设置padding-bottom值大于等于footer的height值，以保证main的内容能够全部显示出来而不被footer遮盖；*/  
+    padding-bottom: 380px;  
+    box-sizing: border-box;
+}
+.footer{
+    width: 100%;
+    height:380px;   /* footer的高度一定要是固定值*/ 
+    position:absolute;
+    bottom:0px;
+    left:0px;
+}
+.footer-ifram{
+    height:380px;
+}

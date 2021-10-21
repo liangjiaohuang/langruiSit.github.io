@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link rel="icon" href="./favicon.ico">
+        <title>Electric lifting table,kids study desk,Pneumatic lifting table - Wuxi Lanrui Intelligent</title>
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+        <link rel="stylesheet" href="./static/css/common.css?v=202110181959" type="text/css">
+        <link rel="stylesheet" href="./static/css/index.css?v=202110181959" type="text/css">
+        <script src='./static/js/jquery-1.10.2.js'></script>
+    </head>
+    <body>
+        <div class="top-container">
+            <iframe class="header-iframe" frameborder=0 scrolling="no" src="./ifram/header.html" style="height: 80px;"></iframe>
+            <div class="blank"></div>
+            <div>
+                <div id="ban1">
+                    <div class="banner">
+                        <ul class="img">
+                            <li><a href="#"><img src="./static/image/home/banner3.jpg"></a></li>
+                            <li><a href="#"><img src="./static/image/home/banner1.jpg"></a></li>
+                            <li><a href="#"><img src="./static/image/home/banner2.jpg"></a></li>
+                        </ul>
+                        <ul class="num"> <!--小圆圈-->
+
+                        </ul>
+                        <div class="btn btn_l">&lt;</div>
+                        <div class="btn btn_r">&gt;</div>
+                    </div>
+                </div>
+                <div class="about-container">
+                    <div class="about-video container width-1200 layout-flex">
+                        <video width="800px" height="450px" controls="controls">
+                            <source src="./static/video/video.mp4" type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="about-dec">
+                            <p>Wuxi Lanrui Intelligent Technology Co., LTD. is a new and yet very experienced company established in 2008. </p>
+                            <p>&nbsp;</p>
+                            <p>Our team numbers have over 20 years of expertise in furniture hardware industry and smart furniture killers. We have strong research, design and manufacture capacity.</p>
+                            <p>&nbsp;</p>
+                            <p>Our mission is to share our specialized knowledge, offer innovative and creative solution on functional furniture, such as height adjust, angle adjust, flip desktop, gas lift height adjust and others that can be used on office furniture, education,children,outdoor, home and industry.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="products-container">
+                    <div class="container width-1200">
+                        <div class="products-title">
+                            <div style="color: #d1d1d1; font-size: 16px;">////////////////////////////////</div>
+                            <div>Our main recommended products</div>
+                            <div style="color: #d1d1d1; font-size: 16px;">////////////////////////////////</div>
+                        </div>
+                        <ul class="cr-tabs-nav">
+                            <li class="r-tabs-tab" onmouseover="getProductByType(this,'ElectricLiftingTable')">Electric lifting table</li>
+                            <li class="r-tabs-tab" onmouseover="getProductByType(this,'KidsStudyDesk')">Kids study desk</li>
+                            <li class="r-tabs-tab" onmouseover="getProductByType(this,'PneumaticLiftingTable')">Pneumatic table</li>
+                            <li class="r-tabs-tab" onmouseover="getProductByType(this,'Hardware')">Hardware</li>
+                            <li class="r-tabs-tab" onmouseover="getProductByType(this,'Others')">Others</li>
+                        </ul>
+                        <div class="products">
+                            <iframe id="productIfram" frameborder=0 scrolling="no" style="height: 570px;width:1050px;bottom: 0;" src="./ifram/productIfram.html"></iframe>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="certificate-container">
+                    <div class="container width-1200">
+                        <img src="./static/image/home/companyCertificate.png" />
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <iframe name="iframe2" frameborder=0 scrolling="no" class="footer-ifram" src="./ifram/bottom.html"></iframe>
+            </div>
+            
+        </div>
+    </body>
+    <script>
+    $(function(){
+        imgscrool('#ban1');
+        $("#productIfram").load(function(){
+            $("#productIfram")[0].contentWindow.reset("ElectricLiftingTable",8,0,function(){});
+            $(".r-tabs-tab:first").css("border-bottom","4px solid #f27f1d");
+        })
+    })
+
+    // 切换产品分类
+    function getProductByType(mdl,type) {
+        $("#productIfram")[0].contentWindow.reset(type,8,0,function(){});
+        $(".r-tabs-tab").css("border","0");
+        $(mdl).css("border-bottom","4px solid #f27f1d");
+    }
+    //这是函数
+    function imgscrool(obj){
+        var moving = false;
+        var width = $(obj+" .banner .img img").width();
+        console.log(width)
+        width = 1775;
+        var i=0;
+        var clone=$(obj+" .banner .img li").first().clone();
+        $(obj+" .banner .img").append(clone);
+        var size=$(obj+" .banner .img li").size();
+        for(var j=0;j<size-1;j++){
+            $(obj+" .banner .num").append("<li></li>");
+        }
+
+        $(obj+" .banner .num li").first().addClass("on");
+
+        /*鼠标划入圆点*/
+        if ($(obj+" .banner .num li")) {
+            $(obj+" .banner .num li").hover(function(){
+                var index=$(this).index();
+                i=index;
+                $(obj+" .banner .img").stop().animate({left:-index*width},1000)
+                $(this).addClass("on").siblings().removeClass("on")
+            })
+        };
+
+        //处理轮播初始宽度问题
+
+        var a2= $(obj+" .banner img").width();
+        var a3= $(obj+" .img li").length
+        $(obj+" .banner .img").width(a2*a3+'px');
+        /*自动轮播*/
+        var t=setInterval(function(){
+            i++;
+            move();
+        },3000)
+
+    /*对banner定时器的操作*/
+    $(obj+" .banner").hover(function(){
+        clearInterval(t);  
+    },function(){
+        t=setInterval(function(){
+            i++;
+            move();
+        },3000)
+    })
+
+    if ($(obj+" .banner .btn_l")) {
+        /*向左的按钮*/
+        $(obj+" .banner .btn_l").stop(true).click(function(){
+            if(moving){
+                return;
+            };
+            moving=true;
+            i--
+            move();
+        })
+
+        /*向右的按钮*/
+        $(obj+" .banner .btn_r").stop(true).click(function(){
+            if(moving){
+                return;
+            }
+            moving=true;
+            i++
+            move()
+        })
+    };
+
+    function move(){
+        if(i==size){
+            $(obj+" .banner .img").css({left:0})
+            i=1;
+        }
+        // 修改轮播每屏宽度
+        if(i==-1){
+            $(obj+" .banner .img").css({left:-(size-1)*width})
+            i=size-2;
+        }
+        if (i == size -1) {
+            $(obj+" .banner .img").css({left:0})
+            i = 1;
+        }
+        $(obj+" .banner .img").stop(true).delay(200).animate({left:-i*width},1000,function(){
+            moving = false;
+        })
+        if(i==size-1){
+            $(obj+" .banner .num li").eq(0).addClass("on").siblings().removeClass("on")
+        }else{
+            $(obj+" .banner .num li").eq(i).addClass("on").siblings().removeClass("on")
+        }
+
+    }
+}
+    </script>
+</html>

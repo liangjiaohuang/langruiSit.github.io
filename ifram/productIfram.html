@@ -1,0 +1,219 @@
+<style>
+    @import url(../static/css/common.css?v=202110181959);
+    @import url(../static/css/prouctIfram.css?v=202110181959);
+</style>
+<script src='../static/js/jquery-1.10.2.js'></script>
+
+<div class="product-container">
+    <div class="product-all" id="productAll">
+        <!-- <div class="product-info" data-type="ElectricLiftingTable">
+            <div class="product-media" data-hasvideo="1">
+                <div class="mediaimg">
+                    <img src="../static/image/product/ElectricLiftingTable/0/1.jpg">
+                    <img style="width: 60px; height: 60px;" class="playCircle" src="../static/image/icon/playCircle.png" />
+                </div>
+                <span class="time">00:00</span>
+                <div class="mediavideo">
+                    <video  autoplay muted loop>
+                        <source src="../static/image/product/ElectricLiftingTable/2/video.mp4"  type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="timeBar"></div>
+                </div>
+            </div>
+            <div class="product-title">
+                <a title="Cycle desk" href="">
+                    Cycle desk ssss ssssssss ssss ssssssssss
+                </a>
+            </div>
+        </div> -->
+    </div>
+    <div id="paging" class="paging">
+    </div>
+</div>
+<script>
+        var pageSize = 8;
+        var globalPageNum = 0;
+        var allProducts = [];
+        $(function(){
+            // loadingProduct(function(){
+            //     createHtml(allProducts);
+            // });
+            
+            // reset("ALLPDC", 8, 0);
+        })
+    
+        /**
+         * type: 产品分类
+         * pageSize: 每页显示数量
+         * showPagingBtn: 是否展示分页按钮
+         */ 
+        function reset(type, currentPageSize, showPagingBtn,callback) {
+            if (!showPagingBtn) {
+                $("#paging").css("display","none");
+            } else {
+                $("#paging").css("display","block");
+            }
+            
+            pageSize = currentPageSize;
+            let showProducts = filterProductByType(type,function(data){
+                // 绘制界面
+                createHtml(data);
+                callback(data.length);
+            });
+
+        }
+
+        // 根据类型过滤数据
+        function filterProductByType(type, callback) {
+            let filertProducts = [];
+            loadingProduct(function(){
+                if (type === "ALLPDC") {
+                    callback(allProducts);
+                } else {
+                    for (var i = 0; i < allProducts.length; i++) {
+                        let pdc = allProducts[i];
+                        if (pdc.type === type) {
+                            filertProducts.push(pdc);
+                        }
+                    }
+                    callback(filertProducts);
+                }
+
+            });
+        }
+
+        // 加载所有产品信息
+        function loadingProduct(callback) {
+            allProducts = [];
+            $.getJSON("../static/json/product.json",function(data){
+                let count = 0;
+                for (var i = 0; i < data.length; i++) {
+                    let productGroup = data[i];
+                    for (var j = 0; j < productGroup.items.length; j++) {
+                        let product = productGroup.items[j];
+                        product.type = productGroup.type;
+                        allProducts.push(product)
+                    }
+                }
+                callback();
+            })
+        }
+
+        // 初始化翻页按钮
+        function initPageBtn() {
+            let pagingBtnHtml = "";
+            if (globalPageNum <= 1) {
+                $("#paging").empty();
+                return;
+            }
+            for (var i = 0; i < globalPageNum; i++) {
+                var currentPage = i+1; 
+                if (i == 0) {
+                    pagingBtnHtml += "<button class='actived' onclick=pageBtnClick(this," + currentPage + ")>" + currentPage + "</button>";
+                } else {
+                    pagingBtnHtml += "<button class='reactived' onclick=pageBtnClick(this," + currentPage + ")>" + currentPage + "</button>";
+                }
+            }
+            $("#paging").empty();
+            $("#paging").append(pagingBtnHtml);
+
+        }
+
+        // 按钮动作
+        function pageBtnClick(btn,page) {
+            $("button").removeClass("actived");
+            $("button").addClass("reactived");
+            $(btn).removeClass("reactived");
+            $(btn).addClass("actived");
+            dopaging(page);
+        }
+        // 指定翻页
+        function dopaging(page){
+            $(".product-info[pageNum!='"+ page +"']").css("display","none");
+            $(".product-info[pageNum='"+ page +"']").css("display","block")
+        }
+        function createHtml(productData) {
+            let pdcHtml = "";
+            globalPageNum = 0;
+            for(let i=0; i < productData.length; i++) {
+                let pdc = productData[i];
+                if ((i+1) % pageSize == 0) {
+                    globalPageNum = (i+1)/pageSize;
+                } else {
+                    globalPageNum = Math.ceil((i+1)/pageSize);
+                }
+                pdcHtml += "<div class='product-info' type='" + pdc.type + "' pageNum='" + globalPageNum +"'>";
+                    pdcHtml += "<div class='product-media' data-hasvideo='" + pdc.hasVideo + "'>";
+                    pdcHtml += "<div class='mediaimg'>";
+                        let url = "../static/image/product/" + pdc.type + "/" + pdc.index + "/" + "1.jpg";
+                        pdcHtml += "<img src='" + url + "'/>"
+                        if (pdc.hasVideo === 1) {
+                            pdcHtml += "<img style='width: 60px; height: 60px;' class='playCircle' src='../static/image/icon/playCircle.png' />";
+                        }
+                    pdcHtml += "</div>"
+                    if (pdc.hasVideo === 1) {
+                        pdcHtml += "<span class='time'>00:00</span>";
+                        pdcHtml += "<div class='mediavideo'>";
+                                pdcHtml += "<video  autoplay muted loop>";
+                                    let vdurl = "../static/image/product/" + pdc.type + "/" + pdc.index + "/" + "video.mp4";
+                                    pdcHtml += "<source src='" + vdurl +"'  type='video/mp4' />";
+                                    pdcHtml += "Your browser does not support the video tag.";
+                                pdcHtml += "</video>"
+                                pdcHtml += "<div class='timeBar'></div>"
+                        pdcHtml += "</div>"
+                    } 
+                    pdcHtml += "</div>"
+                    pdcHtml += "<div class='product-title'>"
+                        pdcHtml += "<a target='_blank' title='" + pdc.title + "' href='../pages/productInfo.html?type=" + pdc.type + "&index=" + pdc.index + "'>" + pdc.title + "</a>"
+                    pdcHtml += "</div>"
+                pdcHtml += "</div>"
+            }
+            $("#productAll").empty();
+            $("#productAll").append(pdcHtml);
+            // 只显示第一页
+            dopaging(1);
+            // 初始化分页按钮
+            initPageBtn();
+            hoverPlay();
+        }
+        function hoverPlay() {
+            $('.product-media').hover(function(){// inFunction
+                if ($(this).data("hasvideo") === 1) {
+                    $(this).find('.mediaimg').css("display", "none");
+                    $(this).find('.mediavideo').css("display", "block");
+                    let that = $(this);
+                    $(this).find('video').on('timeupdate', function() {
+                        var currentPos = $(this)[0].currentTime; //Get currenttime
+                        var maxduration = $(this)[0].duration; //Get video duration
+                        var percentage = 100 * currentPos / maxduration; //in %
+                        $(that).find('.timeBar').css('width', percentage+'%');
+                        var remaingTime = Math.floor(maxduration - currentPos);
+                        if (remaingTime < 10) {
+                            $(that).find('.time').text("00:0" + remaingTime);
+                        } else {
+                            $(that).find('.time').text("00:" + remaingTime);
+                        }
+                        
+                    })
+                    // 自动播放
+                    $(this).find('video')[0].play();
+                }
+                ;
+            },function(){//outFunction
+                $(this).find('.mediaimg').css("display", "block");
+                $(this).find('.mediavideo').css("display", "none");
+                // 自动播放
+                $(this).find('video')[0].pause();
+            });
+
+            $("video").on('loadedmetadata', function() {
+                var maxduration = Math.floor($(this)[0].duration);
+                if (maxduration < 10) {
+                    $(this).parent().siblings("span").text("00:0" + maxduration);
+                } else {
+                    $(this).parent().siblings("span").text("00:" + maxduration);
+                }
+            });
+        }
+</script>
