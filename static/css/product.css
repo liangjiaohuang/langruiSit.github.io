@@ -21,6 +21,7 @@
     align-items: center;
     font-size: 16px;
     font-weight: 600;
+    cursor: pointer;
 }
 .r-tabs-tab:hover{
     color: rgb(242, 127, 29);
