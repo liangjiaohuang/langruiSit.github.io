@@ -64,6 +64,7 @@
     list-style: none;
     text-align: -webkit-match-parent;
     width: 174px;
+    cursor: pointer;
 }
 .products{
     display: flex;
